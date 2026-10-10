@@ -1,0 +1,73 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global Safety Net: default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // Validation for Reminders
+    function isValidReminder(data) {
+      return data.title is string && data.title.size() > 0 && data.title.size() <= 200 &&
+             data.deadline is string && data.deadline.size() > 0 && data.deadline.size() <= 100 &&
+             data.status in ['upcoming', 'completed'] &&
+             data.urgency in ['Urgent', 'Important', 'Informational'];
+    }
+
+    // Validation for Drafts
+    function isValidDraft(data) {
+      return data.to is string && data.to.size() <= 200 &&
+             data.subject is string && data.subject.size() <= 300 &&
+             data.body is string && data.body.size() <= 10000;
+    }
+
+    // Validation for User Preferences
+    function isValidPreference(data) {
+      return data.replyTone in ['professional', 'friendly', 'formal'];
+    }
+
+    // Reminders collection
+    match /reminders/{reminderId} {
+      allow get: if isSignedIn() && (resource.data.userId == request.auth.uid || !('userId' in resource.data));
+      allow list: if isSignedIn();
+      allow create: if isSignedIn() && isValidId(reminderId) && isValidReminder(incoming());
+      allow update: if isSignedIn() && isValidId(reminderId) && isValidReminder(incoming());
+      allow delete: if isSignedIn() && isValidId(reminderId);
+    }
+
+    // Drafts collection
+    match /drafts/{draftId} {
+      allow get: if isSignedIn() && (resource.data.userId == request.auth.uid || !('userId' in resource.data));
+      allow list: if isSignedIn();
+      allow create: if isSignedIn() && isValidId(draftId) && isValidDraft(incoming());
+      allow update: if isSignedIn() && isValidId(draftId) && isValidDraft(incoming());
+      allow delete: if isSignedIn() && isValidId(draftId);
+    }
+
+    // Preferences collection
+    match /preferences/{preferenceId} {
+      allow get: if isSignedIn() && (resource.data.userId == request.auth.uid || !('userId' in resource.data));
+      allow list: if isSignedIn();
+      allow create: if isSignedIn() && isValidId(preferenceId) && isValidPreference(incoming());
+      allow update: if isSignedIn() && isValidId(preferenceId) && isValidPreference(incoming());
+      allow delete: if isSignedIn() && isValidId(preferenceId);
+    }
+  }
+}

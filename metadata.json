@@ -1,0 +1,6 @@
+{
+  "name": "MailMind AI — Smart Email Assistant",
+  "description": "Modern AI-powered email productivity platform with automated email summarization, smart reply drafting, deadline extraction, and AI assistant chat.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

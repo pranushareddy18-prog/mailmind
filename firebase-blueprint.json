@@ -1,0 +1,59 @@
+{
+  "entities": {
+    "reminder": {
+      "title": "Reminder",
+      "description": "A smart reminder or deadline extracted from an email or created manually.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "maxLength": 200 },
+        "relatedEmailId": { "type": "string", "maxLength": 100 },
+        "relatedEmailSubject": { "type": "string", "maxLength": 300 },
+        "sender": { "type": "string", "maxLength": 100 },
+        "deadline": { "type": "string", "maxLength": 100 },
+        "status": { "type": "string", "enum": ["upcoming", "completed"] },
+        "urgency": { "type": "string", "enum": ["Urgent", "Important", "Informational"] },
+        "dateCreated": { "type": "string", "maxLength": 50 },
+        "userId": { "type": "string", "maxLength": 128 }
+      },
+      "required": ["title", "deadline", "status", "urgency"]
+    },
+    "draft": {
+      "title": "DraftEmail",
+      "description": "An email draft composed with AI writing assistance.",
+      "type": "object",
+      "properties": {
+        "to": { "type": "string", "maxLength": 200 },
+        "subject": { "type": "string", "maxLength": 300 },
+        "body": { "type": "string", "maxLength": 10000 },
+        "lastSaved": { "type": "string", "maxLength": 50 },
+        "userId": { "type": "string", "maxLength": 128 }
+      },
+      "required": ["to", "subject", "body"]
+    },
+    "userPreference": {
+      "title": "UserPreference",
+      "description": "User preferences such as default reply tone and UI settings.",
+      "type": "object",
+      "properties": {
+        "replyTone": { "type": "string", "enum": ["professional", "friendly", "formal"] },
+        "autoSummarize": { "type": "boolean" },
+        "userId": { "type": "string", "maxLength": 128 }
+      },
+      "required": ["replyTone"]
+    }
+  },
+  "firestore": {
+    "/reminders/{reminderId}": {
+      "schema": { "$ref": "#/entities/reminder" },
+      "description": "User reminders and extracted deadlines."
+    },
+    "/drafts/{draftId}": {
+      "schema": { "$ref": "#/entities/draft" },
+      "description": "User email drafts."
+    },
+    "/preferences/{preferenceId}": {
+      "schema": { "$ref": "#/entities/userPreference" },
+      "description": "User settings and preferences."
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "reminders": [
+    {
+      "id": "rem-1",
+      "title": "Submit 2-page Architecture PDF to Canvas",
+      "relatedEmailId": "email-1",
+      "relatedEmailSubject": "CS Capstone Committee: Final Code Freeze & Live Demo Guidelines",
+      "sender": "Prof. David Vance",
+      "deadline": "Tuesday, Oct 13 · 5:00 PM EST",
+      "status": "upcoming",
+      "urgency": "Urgent",
+      "dateCreated": "2026-10-09"
+    },
+    {
+      "id": "rem-2",
+      "title": "GitHub Code Freeze Cutoff for Capstone",
+      "relatedEmailId": "email-1",
+      "relatedEmailSubject": "CS Capstone Committee: Final Code Freeze & Live Demo Guidelines",
+      "sender": "Prof. David Vance",
+      "deadline": "Wednesday, Oct 14 · 11:59 PM EST",
+      "status": "upcoming",
+      "urgency": "Urgent",
+      "dateCreated": "2026-10-09"
+    },
+    {
+      "id": "rem-3",
+      "title": "Submit Google Interview Availability Form",
+      "relatedEmailId": "email-2",
+      "relatedEmailSubject": "Google University Programs: Software Engineering Intern Interview Invitation",
+      "sender": "Jessica Martinez",
+      "deadline": "Monday, Oct 19 · 12:00 PM PST",
+      "status": "upcoming",
+      "urgency": "Urgent",
+      "dateCreated": "2026-10-09"
+    },
+    {
+      "id": "rem-4",
+      "title": "Hackathon Final Submission & Video Due",
+      "relatedEmailId": "email-4",
+      "relatedEmailSubject": "Hackathon Project \"MailMind\" Sync & Weekend Hackroom Booking",
+      "sender": "Maya Lin",
+      "deadline": "Sunday · 3:00 PM",
+      "status": "upcoming",
+      "urgency": "Important",
+      "dateCreated": "2026-10-09"
+    }
+  ],
+  "drafts": [
+    {
+      "id": "draft-initial-1",
+      "to": "david.vance@cs.stanford.edu",
+      "subject": "Draft: CS Capstone Live Demo Staging Token Request",
+      "body": "Dear Professor Vance,\n\nOur team is finalizing the demonstration dataset. Could you please provide 2 extra staging API tokens for our test runner?\n\nBest,\nAlex",
+      "lastSaved": "Yesterday at 4:15 PM"
+    }
+  ],
+  "preferences": {
+    "replyTone": "professional",
+    "autoSummarize": true
+  }
+}
